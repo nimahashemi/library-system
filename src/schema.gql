@@ -1,0 +1,161 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Book {
+  _id: String!
+
+  """Book Active"""
+  active: Boolean!
+
+  """Book Author"""
+  author: String!
+
+  """Book ISBN"""
+  isbn: String!
+
+  """Book Loaned"""
+  loaned: Boolean!
+
+  """Book Name"""
+  name: String!
+
+  """Book Summery"""
+  summery: String!
+}
+
+input BookCreatetDto {
+  """Book Active"""
+  active: Boolean!
+
+  """Book Author"""
+  author: String!
+
+  """Book ISBN"""
+  isbn: String!
+
+  """Book Loaned"""
+  loaned: Boolean!
+
+  """Book Name"""
+  name: String!
+
+  """Book Summery"""
+  summery: String!
+}
+
+input BookUpdateDto {
+  _id: String!
+
+  """Book Active"""
+  active: Boolean
+
+  """Book Author"""
+  author: String
+
+  """Book ISBN"""
+  isbn: String
+
+  """Book Loaned"""
+  loaned: Boolean
+
+  """Book Name"""
+  name: String
+
+  """Book Summery"""
+  summery: String
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type Mutation {
+  createBook(bookCreatetDto: BookCreatetDto!): Book!
+  createUser(userCreatetDto: UserCreatetDto!): User!
+  removeBook(id: String!): Book!
+  removeUser(id: String!): User!
+  updateBook(bookUpdateDto: BookUpdateDto!): Book!
+  updateUser(userCreatetDto: UserUpdatetDto!): User!
+}
+
+type Query {
+  book(_id: String!): Book!
+  books(filters: BookCreatetDto): [Book!]!
+  user(_id: String!): User!
+  users(filters: UserCreatetDto): [User!]!
+}
+
+type User {
+  _id: String!
+
+  """User Active"""
+  active: Boolean!
+
+  """Birthdate"""
+  birthdate: DateTime!
+
+  """User Email"""
+  email: String!
+
+  """User Gender"""
+  gender: String!
+
+  """User Full Name"""
+  name: String!
+
+  """Password"""
+  password: String!
+
+  """User Role"""
+  role: String!
+}
+
+input UserCreatetDto {
+  """User Active"""
+  active: Boolean!
+
+  """Birthdate"""
+  birthdate: DateTime!
+
+  """User Email"""
+  email: String!
+
+  """User Gender"""
+  gender: String!
+
+  """User Full Name"""
+  name: String!
+
+  """Paswword"""
+  password: String!
+
+  """User Role"""
+  role: String!
+}
+
+input UserUpdatetDto {
+  _id: String!
+
+  """User Active"""
+  active: Boolean
+
+  """Birthdate"""
+  birthdate: DateTime
+
+  """User Email"""
+  email: String
+
+  """User Gender"""
+  gender: String
+
+  """User Full Name"""
+  name: String
+
+  """Paswword"""
+  password: String
+
+  """User Role"""
+  role: String
+}
