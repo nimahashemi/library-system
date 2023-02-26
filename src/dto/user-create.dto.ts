@@ -34,7 +34,6 @@ export class UserCreatetDto {
   gender: string;
 
   @IsDate()
-  @MaxLength(30)
   @IsNotEmpty()
   @Field(() => Date, { description: 'Birthdate' })
   birthdate: Date;

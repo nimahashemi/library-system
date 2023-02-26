@@ -2,6 +2,19 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+type Auth {
+  _id: String!
+
+  """User Email"""
+  email: String!
+
+  """User Email"""
+  token: String!
+
+  """User ID"""
+  user: String!
+}
+
 type Book {
   _id: String!
 
@@ -74,6 +87,7 @@ scalar DateTime
 type Mutation {
   createBook(bookCreatetDto: BookCreatetDto!): Book!
   createUser(userCreatetDto: UserCreatetDto!): User!
+  login(email: String!, password: String!): Auth!
   removeBook(id: String!): Book!
   removeUser(id: String!): User!
   updateBook(bookUpdateDto: BookUpdateDto!): Book!

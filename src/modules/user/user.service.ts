@@ -1,9 +1,10 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotAcceptableException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { UserCreatetDto } from 'src/dto/user-create.dto';
 import { UserUpdatetDto } from 'src/dto/user-update.dto';
 import { User, UserDocument } from '../../schemas/user.schema';
+import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class UserService {
@@ -11,6 +12,9 @@ export class UserService {
 
   async create(userCreatetDto: UserCreatetDto) {
     try {
+      const salt = await bcrypt.genSalt();
+      const hashPassword = await bcrypt.hash(userCreatetDto.password, salt);
+      userCreatetDto.password = hashPassword;
       const user = new this.userModel(userCreatetDto);
       return await user.save();
     } catch (error) {
@@ -40,6 +44,18 @@ export class UserService {
       return user;
     } catch (error) {
       return new Error(error.message);
+    }
+  }
+
+  async findByEmail(email: string): Promise<User> {
+    try {
+      const user = await this.userModel.findOne({ email }).exec();
+      if (!user) {
+        throw new NotAcceptableException('could not find the user');
+      }
+      return user;
+    } catch (error) {
+      throw new NotAcceptableException('could not find the user');
     }
   }
 

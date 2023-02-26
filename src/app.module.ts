@@ -8,6 +8,7 @@ import { GraphQLModule } from '@nestjs/graphql';
 import { UserModule } from './modules/user/user.module';
 import { BookModule } from './modules/book/book.module';
 import { UserBookModule } from './modules/user-book/user-book.module';
+import { AuthModule } from './modules/auth/auth.module';
 
 @Module({
   imports: [
@@ -27,6 +28,7 @@ import { UserBookModule } from './modules/user-book/user-book.module';
     UserModule,
     BookModule,
     UserBookModule,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],
