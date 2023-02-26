@@ -24,7 +24,7 @@ export class UserBookService {
 
   async create(UserBookCreateDto: UserBookCreateDto, req?: Request) {
     try {
-      if (req && req?.headers?.authorization)
+      if (req && !req?.headers?.authorization)
         throw new UnauthorizedException('Your Access is Limited ...!');
       const book = new this.userBookModel(UserBookCreateDto);
       return await book.save();
@@ -35,7 +35,7 @@ export class UserBookService {
 
   async findAll(filters: UserBookCreateDto, req?: Request) {
     try {
-      if (req && req?.headers?.authorization)
+      if (req && !req?.headers?.authorization)
         throw new UnauthorizedException('Your Access is Limited ...!');
       const books = await this.userBookModel.find({ ...filters }).exec();
 
@@ -50,7 +50,7 @@ export class UserBookService {
 
   async findOne(id: string, req?: Request) {
     try {
-      if (req && req?.headers?.authorization)
+      if (req && !req?.headers?.authorization)
         throw new UnauthorizedException('Your Access is Limited ...!');
       const book = await this.userBookModel.findOne({ _id: id }).exec();
       if (!book) {
@@ -64,7 +64,7 @@ export class UserBookService {
 
   async update(id: string, userBookUpdateDto: UserBookUpdateDto, req: Request) {
     try {
-      if (req && req?.headers?.authorization)
+      if (req && !req?.headers?.authorization)
         throw new UnauthorizedException('Your Access is Limited ...!');
       const book = await this.userBookModel.findOne({ _id: id }).exec();
       if (!book) {
@@ -77,14 +77,14 @@ export class UserBookService {
   }
 
   async remove(id: string, req?: Request) {
-    if (req && req?.headers?.authorization)
+    if (req && !req?.headers?.authorization)
       throw new UnauthorizedException('Your Access is Limited ...!');
     return this.userBookModel.findByIdAndDelete(id);
   }
 
   async booksStatus(bookLoanDto: BookLoanDto, req?: Request) {
     let list;
-    if (req && req?.headers?.authorization)
+    if (req && !req?.headers?.authorization)
       throw new UnauthorizedException('Your Access is Limited ...!');
     const userbooks = await this.userBookModel.find();
 

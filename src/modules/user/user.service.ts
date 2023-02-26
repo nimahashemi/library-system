@@ -18,7 +18,7 @@ export class UserService {
 
   async create(userCreatetDto: UserCreatetDto, req: Request) {
     try {
-      if (req && req?.headers?.authorization)
+      if (req && !req?.headers?.authorization)
         throw new UnauthorizedException('Your Access is Limited ...!');
       const salt = await bcrypt.genSalt();
       const hashPassword = await bcrypt.hash(userCreatetDto.password, salt);
@@ -35,7 +35,7 @@ export class UserService {
     req?: Request,
   ): Promise<UserCreatetDto[]> {
     try {
-      if (req && req?.headers?.authorization)
+      if (req && !req?.headers?.authorization)
         throw new UnauthorizedException('Your Access is Limited ...!');
       const users = await this.userModel.find({ ...filters }).exec();
 
@@ -50,7 +50,7 @@ export class UserService {
 
   async findOne(id: string, req?: Request): Promise<UserCreatetDto> {
     try {
-      if (req && req?.headers?.authorization)
+      if (req && !req?.headers?.authorization)
         throw new UnauthorizedException('Your Access is Limited ...!');
       const user = await this.userModel.findOne({ _id: id }).exec();
       if (!user) {
@@ -76,7 +76,7 @@ export class UserService {
 
   async update(id: string, userUpdateDto: UserUpdatetDto, req: Request) {
     try {
-      if (req && req?.headers?.authorization)
+      if (req && !req?.headers?.authorization)
         throw new UnauthorizedException('Your Access is Limited ...!');
       const user = await this.userModel.findOne({ _id: id }).exec();
       if (!user) {
@@ -89,7 +89,7 @@ export class UserService {
   }
 
   async remove(id: string, req: Request) {
-    if (req && req?.headers?.authorization)
+    if (req && !req?.headers?.authorization)
       throw new UnauthorizedException('Your Access is Limited ...!');
     return this.userModel.findByIdAndDelete(id);
   }
