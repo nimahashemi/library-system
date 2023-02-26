@@ -58,6 +58,28 @@ $ npm run test:e2e
 $ npm run test:cov
 ```
 
+## Test docker localy
+```
+$ docker build -t nest-cloud-run .
+```
+## Verify docker image
+```
+$ docker images
+```
+## Start container
+```
+$ docker run -p80:3000 nest-cloud-run
+
+```
+## Docker for production
+```
+ENV NODE_ENV production
+RUN npm ci
+USER node
+COPY --chown=node:node package*.json ./
+```
+
+
 ## Support
 
 Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
