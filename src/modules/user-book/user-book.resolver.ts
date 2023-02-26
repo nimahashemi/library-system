@@ -3,6 +3,7 @@ import { UserBookService } from './user-book.service';
 import { UserBook } from 'src/schemas/user-book.schema';
 import { UserBookCreateDto } from '../../dto/user-book-create.dto';
 import { UserBookUpdateDto } from '../../dto/user-book-update.dto';
+import { BookLoanDto } from '../../dto/book-loan-dto';
 
 @Resolver(() => UserBook)
 export class UserBookResolver {
@@ -40,5 +41,10 @@ export class UserBookResolver {
   @Mutation(() => UserBook)
   async removeUserBook(@Args('id', { type: () => String }) id: string) {
     return await this.userBookService.remove(id);
+  }
+
+  @Query(() => [UserBook])
+  async loanedBook(@Args('filters', { nullable: true }) filters?: BookLoanDto) {
+    // return await this.userBookService.findAll(filters);
   }
 }
