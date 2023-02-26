@@ -16,7 +16,7 @@ export class AuthService {
 
   async validateUser(email: string, password: string) {
     const user = await this.userService.findByEmail(email);
-    if (!user) return null;
+
     const passwordValid = await bcrypt.compare(password, user.password);
     if (!user) {
       throw new NotAcceptableException('could not find the user');
@@ -29,7 +29,6 @@ export class AuthService {
   async login(email: string, password: string): Promise<Auth> {
     const user = await this.validateUser(email, password);
     const payload = { email: user.email, sub: user._id, role: user.role };
-
     const authUser = await this.authModel.findOne({ email });
     if (!authUser) {
       const auth = new this.authModel({
@@ -42,6 +41,5 @@ export class AuthService {
       authUser.token = this.jwtService.sign(payload);
       return await this.authModel.findByIdAndUpdate(authUser);
     }
-    // access_token: this.jwtService.sign(payload),
   }
 }

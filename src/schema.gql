@@ -8,6 +8,9 @@ type Auth {
   """User Email"""
   email: String!
 
+  """User Password"""
+  password: String
+
   """User Email"""
   token: String!
 
@@ -84,20 +87,36 @@ A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date
 """
 scalar DateTime
 
+input LoginInput {
+  """User Email"""
+  email: String!
+
+  """Paswword"""
+  password: String!
+
+  """token"""
+  token: String
+}
+
 type Mutation {
   createBook(bookCreatetDto: BookCreatetDto!): Book!
   createUser(userCreatetDto: UserCreatetDto!): User!
-  login(email: String!, password: String!): Auth!
+  createUserBook(bookCreatetDto: UserBookCreateDto!): UserBook!
+  login(loginInput: LoginInput!): Auth
   removeBook(id: String!): Book!
   removeUser(id: String!): User!
+  removeUserBook(id: String!): UserBook!
   updateBook(bookUpdateDto: BookUpdateDto!): Book!
   updateUser(userCreatetDto: UserUpdatetDto!): User!
+  updateUserBook(bookUpdateDto: UserBookUpdateDto!): UserBook!
 }
 
 type Query {
   book(_id: String!): Book!
   books(filters: BookCreatetDto): [Book!]!
   user(_id: String!): User!
+  userbook(_id: String!): UserBook!
+  userbooks(filters: UserBookCreateDto): [UserBook!]!
   users(filters: UserCreatetDto): [User!]!
 }
 
@@ -124,6 +143,52 @@ type User {
 
   """User Role"""
   role: String!
+}
+
+type UserBook {
+  _id: String!
+
+  """Reserve Status"""
+  active: Boolean!
+
+  """Book ID"""
+  book: String!
+
+  """Return Date"""
+  return: DateTime!
+
+  """User ID"""
+  user: String!
+}
+
+input UserBookCreateDto {
+  """Book"""
+  book: String!
+
+  """Return"""
+  return: String!
+
+  """Status"""
+  status: String!
+
+  """User"""
+  user: String!
+}
+
+input UserBookUpdateDto {
+  _id: String!
+
+  """Book"""
+  book: String
+
+  """Return"""
+  return: String
+
+  """Status"""
+  status: String
+
+  """User"""
+  user: String
 }
 
 input UserCreatetDto {

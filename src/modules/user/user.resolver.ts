@@ -1,16 +1,20 @@
-import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
+import { Resolver, Query, Mutation, Args, Context } from '@nestjs/graphql';
 import { UserService } from './user.service';
 import { User } from 'src/schemas/user.schema';
 import { UserCreatetDto } from 'src/dto/user-create.dto';
 import { UserUpdatetDto } from 'src/dto/user-update.dto';
+import { CustomContext } from 'src/types/custom.context';
 
 @Resolver(() => User)
 export class UserResolver {
   constructor(private readonly userService: UserService) {}
 
   @Mutation(() => User)
-  async createUser(@Args('userCreatetDto') userCreatetDto: UserCreatetDto) {
-    return await this.userService.create(userCreatetDto);
+  async createUser(
+    @Args('userCreatetDto') userCreatetDto: UserCreatetDto,
+    @Context() ctx: CustomContext,
+  ) {
+    return await this.userService.create(userCreatetDto, ctx.req);
   }
 
   @Query(() => [User])

@@ -34,6 +34,10 @@ export class UserBook {
   @Prop({ required: true })
   @Field(() => Date, { description: 'Return Date' })
   return: Date;
+
+  @Prop({ default: true })
+  @Field(() => Boolean, { description: 'Reserve Status' })
+  active: boolean;
 }
 
 export const UserBookSchema = SchemaFactory.createForClass(UserBook);

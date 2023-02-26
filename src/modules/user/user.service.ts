@@ -5,13 +5,15 @@ import { UserCreatetDto } from 'src/dto/user-create.dto';
 import { UserUpdatetDto } from 'src/dto/user-update.dto';
 import { User, UserDocument } from '../../schemas/user.schema';
 import * as bcrypt from 'bcrypt';
+import { Request } from 'express';
 
 @Injectable()
 export class UserService {
   constructor(@InjectModel(User.name) private userModel: Model<UserDocument>) {}
 
-  async create(userCreatetDto: UserCreatetDto) {
+  async create(userCreatetDto: UserCreatetDto, req: Request) {
     try {
+      console.log(req.headers);
       const salt = await bcrypt.genSalt();
       const hashPassword = await bcrypt.hash(userCreatetDto.password, salt);
       userCreatetDto.password = hashPassword;
@@ -47,7 +49,7 @@ export class UserService {
     }
   }
 
-  async findByEmail(email: string): Promise<User> {
+  async findByEmail(email: string) {
     try {
       const user = await this.userModel.findOne({ email }).exec();
       if (!user) {

@@ -29,6 +29,10 @@ export class Auth {
   @Prop({ required: true, unique: true })
   @Field(() => String, { description: 'User Email' })
   token: string;
+
+  @Prop({ required: false })
+  @Field(() => String, { description: 'User Password', nullable: true })
+  password?: string;
 }
 
 export const AuthSchema = SchemaFactory.createForClass(Auth);
