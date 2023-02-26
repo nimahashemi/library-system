@@ -60,6 +60,26 @@ input BookCreatetDto {
   summery: String!
 }
 
+input BookLoanDto {
+  """Book"""
+  book: String
+
+  """Book Name"""
+  bookName: String
+
+  """Use Full name"""
+  fullName: String
+
+  """Return"""
+  return: String
+
+  """Status"""
+  status: String
+
+  """User"""
+  user: String
+}
+
 input BookUpdateDto {
   _id: String!
 
@@ -114,6 +134,7 @@ type Mutation {
 type Query {
   book(_id: String!): Book!
   books(filters: BookCreatetDto): [Book!]!
+  booksStatus(filters: BookLoanDto): [UserBook!]!
   user(_id: String!): User!
   userbook(_id: String!): UserBook!
   userbooks(filters: UserBookCreateDto): [UserBook!]!

@@ -44,7 +44,9 @@ export class UserBookResolver {
   }
 
   @Query(() => [UserBook])
-  async loanedBook(@Args('filters', { nullable: true }) filters?: BookLoanDto) {
-    // return await this.userBookService.findAll(filters);
+  async booksStatus(
+    @Args('filters', { nullable: true }) filters?: BookLoanDto,
+  ) {
+    return await this.userBookService.booksStatus(filters);
   }
 }

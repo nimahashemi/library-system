@@ -1,4 +1,8 @@
-import { Injectable, NotAcceptableException } from '@nestjs/common';
+import {
+  Injectable,
+  NotAcceptableException,
+  NotFoundException,
+} from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { UserCreatetDto } from 'src/dto/user-create.dto';
@@ -24,28 +28,28 @@ export class UserService {
     }
   }
 
-  async findAll(filters: UserCreatetDto) {
+  async findAll(filters: UserCreatetDto): Promise<UserCreatetDto[]> {
     try {
       const users = await this.userModel.find({ ...filters }).exec();
 
       if (!users) {
-        return 'User not found';
+        throw new NotFoundException('Users not found!');
       }
       return users;
     } catch (error) {
-      return new Error(error.message);
+      throw new NotFoundException('Users not found!');
     }
   }
 
-  async findOne(id: string) {
+  async findOne(id: string): Promise<UserCreatetDto> {
     try {
       const user = await this.userModel.findOne({ _id: id }).exec();
       if (!user) {
-        return 'User not found';
+        throw new NotFoundException('User not found!');
       }
       return user;
     } catch (error) {
-      return new Error(error.message);
+      throw new NotFoundException('User not found!');
     }
   }
 

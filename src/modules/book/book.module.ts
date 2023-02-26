@@ -11,5 +11,6 @@ import { BookResolver } from './book.resolver';
   ],
   providers: [BookService, BookResolver],
   controllers: [BookController],
+  exports: [BookService],
 })
 export class BookModule {}
