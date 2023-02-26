@@ -19,7 +19,7 @@ export class BookService {
 
   async create(bookCreatetDto: BookCreatetDto, req: Request) {
     try {
-      if (!req?.headers?.authorization)
+      if (req && req?.headers?.authorization)
         throw new UnauthorizedException('Your Access is Limited ...!');
       const book = new this.bookModel(bookCreatetDto);
       return await book.save();
@@ -33,7 +33,7 @@ export class BookService {
     req?: Request,
   ): Promise<BookCreatetDto[]> {
     try {
-      if (!req?.headers?.authorization)
+      if (req && req?.headers?.authorization)
         throw new UnauthorizedException('Your Access is Limited ...!');
       const books = await this.bookModel.find({ ...filters }).exec();
 
@@ -48,7 +48,7 @@ export class BookService {
 
   async findOne(id: string, req?: Request): Promise<BookCreatetDto> {
     try {
-      if (!req?.headers?.authorization)
+      if (req && req?.headers?.authorization)
         throw new UnauthorizedException('Your Access is Limited ...!');
       const book = await this.bookModel.findOne({ _id: id }).exec();
       if (!book) {
@@ -62,7 +62,7 @@ export class BookService {
 
   async update(id: string, bookUpdateDto: BookUpdateDto, req: Request) {
     try {
-      if (!req?.headers?.authorization)
+      if (req && req?.headers?.authorization)
         throw new UnauthorizedException('Your Access is Limited ...!');
       const book = await this.bookModel.findOne({ _id: id }).exec();
       if (!book) {
@@ -75,7 +75,7 @@ export class BookService {
   }
 
   async remove(id: string, req: Request) {
-    if (!req?.headers?.authorization)
+    if (req && req?.headers?.authorization)
       throw new UnauthorizedException('Your Access is Limited ...!');
     return this.bookModel.findByIdAndDelete(id);
   }

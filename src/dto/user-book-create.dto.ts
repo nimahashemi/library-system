@@ -11,24 +11,24 @@ import mongoose from 'mongoose';
 @InputType()
 export class UserBookCreateDto {
   @IsString()
-  @MaxLength(20)
+  @MaxLength(50)
   @IsNotEmpty()
   @Field(() => String, { description: 'User' })
   user: mongoose.Schema.Types.ObjectId;
 
   @IsString()
-  @MaxLength(20)
+  @MaxLength(50)
   @IsNotEmpty()
   @Field(() => String, { description: 'Book' })
   book: mongoose.Schema.Types.ObjectId;
 
   @IsDate()
   @IsNotEmpty()
-  @Field(() => String, { description: 'Return' })
+  @Field(() => Date, { description: 'Return' })
   return: Date;
 
   @IsBoolean()
   @IsNotEmpty()
-  @Field(() => String, { description: 'Status' })
-  status: boolean;
+  @Field(() => Boolean, { description: 'active' })
+  active: boolean;
 }

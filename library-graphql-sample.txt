@@ -1,0 +1,108 @@
+mutation createBook($bookCreatetDto: BookCreatetDto!) {
+  createBook(bookCreatetDto: $bookCreatetDto) {
+      name
+    	author
+    	isbn
+    	summery
+    	loaned
+    	active
+  }
+}
+
+
+Vars:
+{
+  "bookCreatetDto": {
+    "name": "test",
+    "author": "author",
+    "isbn": "123456",
+    "summery": "aabbccdd",
+    "loaned": false,
+    "active": true
+  }
+}
+
+----------------------
+
+query books {
+  books {
+    _id
+    name
+  }
+}
+------------------------
+
+query {
+  book(_id: "63f9dbfe3924eb9c370a3498") {
+    _id
+    name
+  }
+}
+
+----------------------
+
+mutation createUser($userCreatetDto: UserCreatetDto!) {
+  createUser (userCreatetDto: $userCreatetDto) {
+    _id
+    name
+    email
+    password
+    gender
+    role
+    birthdate
+    active
+  }
+}
+
+vars:
+{
+  "createUserDto": {
+    "name": "Nima Hashemi",
+    "email": "nima.hashemi@gmail.com",
+    "password": "123456",
+    "gender": "MALE",
+    "role": "ADMIN",
+    "birthdate": "1982-03-20T09:54:33.000+00:00Z",
+    "active": true
+  }
+}
+
+ 
+----------------------
+
+mutation login($loginInput: LoginInput!) {
+  login (loginInput: $loginInput) {
+    email
+    token
+  }
+}
+
+{
+  "loginInput": {
+    "email": "user@library.com",
+    "password": "123456",
+    "token": ""
+  }
+}
+
+----------------------
+
+mutation createUserBook($userBookCreateDto: UserBookCreateDto!) {
+  createUserBook (userBookCreateDto: $userBookCreateDto) {
+    user
+    book
+    return
+    active
+  }
+}
+
+{
+  "userBookCreateDto": {
+    "user": "63fb62860549d5c0861ffb61",
+    "book": "63f9dbfe3924eb9c370a3498",
+    "return": "2023-02-25T09:59:26.249+00:00",
+    "active": true
+  }
+}
+
+----------------------

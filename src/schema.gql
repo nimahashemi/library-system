@@ -121,14 +121,14 @@ input LoginInput {
 type Mutation {
   createBook(bookCreatetDto: BookCreatetDto!): Book!
   createUser(userCreatetDto: UserCreatetDto!): User!
-  createUserBook(bookCreatetDto: UserBookCreateDto!): UserBook!
+  createUserBook(userBookCreateDto: UserBookCreateDto!): UserBook!
   login(loginInput: LoginInput!): Auth
   removeBook(id: String!): Book!
   removeUser(id: String!): User!
   removeUserBook(id: String!): UserBook!
   updateBook(bookUpdateDto: BookUpdateDto!): Book!
   updateUser(userCreatetDto: UserUpdatetDto!): User!
-  updateUserBook(bookUpdateDto: UserBookUpdateDto!): UserBook!
+  updateUserBook(userBookUpdateDto: UserBookUpdateDto!): UserBook!
 }
 
 type Query {
@@ -183,14 +183,14 @@ type UserBook {
 }
 
 input UserBookCreateDto {
+  """active"""
+  active: Boolean!
+
   """Book"""
   book: String!
 
   """Return"""
-  return: String!
-
-  """Status"""
-  status: String!
+  return: DateTime!
 
   """User"""
   user: String!
@@ -199,14 +199,14 @@ input UserBookCreateDto {
 input UserBookUpdateDto {
   _id: String!
 
+  """active"""
+  active: Boolean
+
   """Book"""
   book: String
 
   """Return"""
-  return: String
-
-  """Status"""
-  status: String
+  return: DateTime
 
   """User"""
   user: String

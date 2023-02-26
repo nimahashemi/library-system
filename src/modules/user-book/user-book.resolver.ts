@@ -12,8 +12,8 @@ export class UserBookResolver {
 
   @Mutation(() => UserBook)
   async createUserBook(
-    @Args('bookCreatetDto') userBookCreateDto: UserBookCreateDto,
-    @Context() ctx: CustomContext,
+    @Args('userBookCreateDto') userBookCreateDto: UserBookCreateDto,
+    @Context() ctx?: CustomContext,
   ) {
     return await this.userBookService.create(userBookCreateDto, ctx.req);
   }
@@ -36,7 +36,7 @@ export class UserBookResolver {
 
   @Mutation(() => UserBook)
   async updateUserBook(
-    @Args('bookUpdateDto') userBookUpdateDto: UserBookUpdateDto,
+    @Args('userBookUpdateDto') userBookUpdateDto: UserBookUpdateDto,
     @Context() ctx: CustomContext,
   ) {
     return await this.userBookService.update(
