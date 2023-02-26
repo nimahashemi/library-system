@@ -42,4 +42,8 @@ export class AuthService {
       return await this.authModel.findByIdAndUpdate(authUser);
     }
   }
+
+  async decodeToken(token: string): Promise<any> {
+    return await this.jwtService.decode(token);
+  }
 }
