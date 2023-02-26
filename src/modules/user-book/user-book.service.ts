@@ -1,4 +1,8 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  Injectable,
+  NotFoundException,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { UserBook } from 'src/schemas/user-book.schema';
 import { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
@@ -7,6 +11,7 @@ import { UserBookUpdateDto } from '../../dto/user-book-update.dto';
 import { BookLoanDto } from '../../dto/book-loan-dto';
 import { UserService } from '../user/user.service';
 import { BookService } from '../book/book.service';
+import { Request } from 'express';
 
 @Injectable()
 export class UserBookService {
@@ -17,8 +22,10 @@ export class UserBookService {
     private readonly bookService: BookService,
   ) {}
 
-  async create(UserBookCreateDto: UserBookCreateDto) {
+  async create(UserBookCreateDto: UserBookCreateDto, req: Request) {
     try {
+      if (!req?.headers?.authorization)
+        throw new UnauthorizedException('Your Access is Limited ...!');
       const book = new this.userBookModel(UserBookCreateDto);
       return await book.save();
     } catch (error) {
@@ -26,8 +33,10 @@ export class UserBookService {
     }
   }
 
-  async findAll(filters: UserBookCreateDto) {
+  async findAll(filters: UserBookCreateDto, req?: Request) {
     try {
+      if (!req?.headers?.authorization)
+        throw new UnauthorizedException('Your Access is Limited ...!');
       const books = await this.userBookModel.find({ ...filters }).exec();
 
       if (!books) {
@@ -39,8 +48,10 @@ export class UserBookService {
     }
   }
 
-  async findOne(id: string) {
+  async findOne(id: string, req?: Request) {
     try {
+      if (!req?.headers?.authorization)
+        throw new UnauthorizedException('Your Access is Limited ...!');
       const book = await this.userBookModel.findOne({ _id: id }).exec();
       if (!book) {
         return 'User Reserved Book not found';
@@ -51,8 +62,10 @@ export class UserBookService {
     }
   }
 
-  async update(id: string, userBookUpdateDto: UserBookUpdateDto) {
+  async update(id: string, userBookUpdateDto: UserBookUpdateDto, req: Request) {
     try {
+      if (!req?.headers?.authorization)
+        throw new UnauthorizedException('Your Access is Limited ...!');
       const book = await this.userBookModel.findOne({ _id: id }).exec();
       if (!book) {
         return 'Book not found';
@@ -63,12 +76,16 @@ export class UserBookService {
     }
   }
 
-  async remove(id: string) {
+  async remove(id: string, req?: Request) {
+    if (!req?.headers?.authorization)
+      throw new UnauthorizedException('Your Access is Limited ...!');
     return this.userBookModel.findByIdAndDelete(id);
   }
 
-  async booksStatus(bookLoanDto: BookLoanDto) {
+  async booksStatus(bookLoanDto: BookLoanDto, req?: Request) {
     let list;
+    if (!req?.headers?.authorization)
+      throw new UnauthorizedException('Your Access is Limited ...!');
     const userbooks = await this.userBookModel.find();
 
     if (!userbooks || userbooks.length == 0) {

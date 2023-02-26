@@ -1,9 +1,14 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  Injectable,
+  NotFoundException,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { Book } from 'src/schemas/book.schema';
 import { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
 import { BookCreatetDto } from 'src/dto/book-create.dto';
 import { BookUpdateDto } from 'src/dto/book-update.dto';
+import { Request } from 'express';
 
 @Injectable()
 export class BookService {
@@ -12,8 +17,10 @@ export class BookService {
     private readonly bookModel: Model<Book>,
   ) {}
 
-  async create(bookCreatetDto: BookCreatetDto) {
+  async create(bookCreatetDto: BookCreatetDto, req: Request) {
     try {
+      if (!req?.headers?.authorization)
+        throw new UnauthorizedException('Your Access is Limited ...!');
       const book = new this.bookModel(bookCreatetDto);
       return await book.save();
     } catch (error) {
@@ -21,8 +28,13 @@ export class BookService {
     }
   }
 
-  async findAll(filters: BookCreatetDto): Promise<BookCreatetDto[]> {
+  async findAll(
+    filters: BookCreatetDto,
+    req?: Request,
+  ): Promise<BookCreatetDto[]> {
     try {
+      if (!req?.headers?.authorization)
+        throw new UnauthorizedException('Your Access is Limited ...!');
       const books = await this.bookModel.find({ ...filters }).exec();
 
       if (!books) {
@@ -34,8 +46,10 @@ export class BookService {
     }
   }
 
-  async findOne(id: string): Promise<BookCreatetDto> {
+  async findOne(id: string, req?: Request): Promise<BookCreatetDto> {
     try {
+      if (!req?.headers?.authorization)
+        throw new UnauthorizedException('Your Access is Limited ...!');
       const book = await this.bookModel.findOne({ _id: id }).exec();
       if (!book) {
         throw new NotFoundException('Users not found!');
@@ -46,8 +60,10 @@ export class BookService {
     }
   }
 
-  async update(id: string, bookUpdateDto: BookUpdateDto) {
+  async update(id: string, bookUpdateDto: BookUpdateDto, req: Request) {
     try {
+      if (!req?.headers?.authorization)
+        throw new UnauthorizedException('Your Access is Limited ...!');
       const book = await this.bookModel.findOne({ _id: id }).exec();
       if (!book) {
         return 'Book not found';
@@ -58,7 +74,9 @@ export class BookService {
     }
   }
 
-  async remove(id: string) {
+  async remove(id: string, req: Request) {
+    if (!req?.headers?.authorization)
+      throw new UnauthorizedException('Your Access is Limited ...!');
     return this.bookModel.findByIdAndDelete(id);
   }
 }

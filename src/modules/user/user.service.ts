@@ -2,6 +2,7 @@ import {
   Injectable,
   NotAcceptableException,
   NotFoundException,
+  UnauthorizedException,
 } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
@@ -17,7 +18,8 @@ export class UserService {
 
   async create(userCreatetDto: UserCreatetDto, req: Request) {
     try {
-      console.log(req.headers);
+      if (!req?.headers?.authorization)
+        throw new UnauthorizedException('Your Access is Limited ...!');
       const salt = await bcrypt.genSalt();
       const hashPassword = await bcrypt.hash(userCreatetDto.password, salt);
       userCreatetDto.password = hashPassword;
@@ -28,8 +30,13 @@ export class UserService {
     }
   }
 
-  async findAll(filters: UserCreatetDto): Promise<UserCreatetDto[]> {
+  async findAll(
+    filters: UserCreatetDto,
+    req?: Request,
+  ): Promise<UserCreatetDto[]> {
     try {
+      if (!req?.headers?.authorization)
+        throw new UnauthorizedException('Your Access is Limited ...!');
       const users = await this.userModel.find({ ...filters }).exec();
 
       if (!users) {
@@ -41,8 +48,10 @@ export class UserService {
     }
   }
 
-  async findOne(id: string): Promise<UserCreatetDto> {
+  async findOne(id: string, req?: Request): Promise<UserCreatetDto> {
     try {
+      if (!req?.headers?.authorization)
+        throw new UnauthorizedException('Your Access is Limited ...!');
       const user = await this.userModel.findOne({ _id: id }).exec();
       if (!user) {
         throw new NotFoundException('User not found!');
@@ -65,8 +74,10 @@ export class UserService {
     }
   }
 
-  async update(id: string, userUpdateDto: UserUpdatetDto) {
+  async update(id: string, userUpdateDto: UserUpdatetDto, req: Request) {
     try {
+      if (!req?.headers?.authorization)
+        throw new UnauthorizedException('Your Access is Limited ...!');
       const user = await this.userModel.findOne({ _id: id }).exec();
       if (!user) {
         return 'User not found';
@@ -77,7 +88,9 @@ export class UserService {
     }
   }
 
-  async remove(id: string) {
+  async remove(id: string, req: Request) {
+    if (!req?.headers?.authorization)
+      throw new UnauthorizedException('Your Access is Limited ...!');
     return this.userModel.findByIdAndDelete(id);
   }
 }

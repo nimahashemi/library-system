@@ -18,22 +18,38 @@ export class UserResolver {
   }
 
   @Query(() => [User])
-  async users(@Args('filters', { nullable: true }) filters?: UserCreatetDto) {
-    return await this.userService.findAll(filters);
+  async users(
+    @Args('filters', { nullable: true }) filters?: UserCreatetDto,
+    @Context() ctx?: CustomContext,
+  ) {
+    return await this.userService.findAll(filters, ctx.req);
   }
 
   @Query(() => User)
-  async user(@Args('_id', { type: () => String }) id: string) {
-    return await this.userService.findOne(id);
+  async user(
+    @Args('_id', { type: () => String }) id: string,
+    @Context() ctx?: CustomContext,
+  ) {
+    return await this.userService.findOne(id, ctx.req);
   }
 
   @Mutation(() => User)
-  async updateUser(@Args('userCreatetDto') userUpdateDto: UserUpdatetDto) {
-    return await this.userService.update(userUpdateDto._id, userUpdateDto);
+  async updateUser(
+    @Args('userCreatetDto') userUpdateDto: UserUpdatetDto,
+    @Context() ctx: CustomContext,
+  ) {
+    return await this.userService.update(
+      userUpdateDto._id,
+      userUpdateDto,
+      ctx.req,
+    );
   }
 
   @Mutation(() => User)
-  async removeUser(@Args('id', { type: () => String }) id: string) {
-    return await this.userService.remove(id);
+  async removeUser(
+    @Args('id', { type: () => String }) id: string,
+    @Context() ctx: CustomContext,
+  ) {
+    return await this.userService.remove(id, ctx.req);
   }
 }
