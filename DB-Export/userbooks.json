@@ -1,0 +1,55 @@
+[{
+  "_id": {
+    "$oid": "63fbde599c8548d12c36fc79"
+  },
+  "user": {
+    "$oid": "63fb62860549d5c0861ffb61"
+  },
+  "book": {
+    "$oid": "63f9dbfe3924eb9c370a3498"
+  },
+  "return": {
+    "$date": {
+      "$numberLong": "1677319166249"
+    }
+  },
+  "active": true,
+  "created": {
+    "$date": {
+      "$numberLong": "1677450841219"
+    }
+  },
+  "updated": {
+    "$date": {
+      "$numberLong": "1677450841219"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "63fbdfd95985c324f1f4e21e"
+  },
+  "user": {
+    "$oid": "63fb62860549d5c0861ffb61"
+  },
+  "book": {
+    "$oid": "63f9dbfe3924eb9c370a3498"
+  },
+  "return": {
+    "$date": {
+      "$numberLong": "1677319166249"
+    }
+  },
+  "active": false,
+  "created": {
+    "$date": {
+      "$numberLong": "1677451225016"
+    }
+  },
+  "updated": {
+    "$date": {
+      "$numberLong": "1677451225016"
+    }
+  },
+  "__v": 0
+}]

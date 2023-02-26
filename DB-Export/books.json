@@ -1,0 +1,22 @@
+[{
+  "_id": {
+    "$oid": "63f9dbfe3924eb9c370a3498"
+  },
+  "name": "test1",
+  "author": "author",
+  "isbn": "123456",
+  "summery": "aabbccdd",
+  "loaned": false,
+  "active": true,
+  "created": {
+    "$date": {
+      "$numberLong": "1677319166249"
+    }
+  },
+  "updated": {
+    "$date": {
+      "$numberLong": "1677333519985"
+    }
+  },
+  "__v": 0
+}]

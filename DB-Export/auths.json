@@ -1,0 +1,21 @@
+[{
+  "_id": {
+    "$oid": "63fb62860549d5c0861ffb61"
+  },
+  "user": {
+    "$oid": "63faff889ffb2a61f64344d4"
+  },
+  "email": "user@library.com",
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InVzZXJAbGlicmFyeS5jb20iLCJzdWIiOiI2M2ZhZmY4ODlmZmIyYTYxZjY0MzQ0ZDQiLCJyb2xlIjoiQURNSU4iLCJpYXQiOjE2Nzc0MTkxNDIsImV4cCI6MTY3NzQxOTIwMn0.annxMh3C_IrXvSPhHdatI1rX7G_sGdGOb5ZONNi3KWA",
+  "created": {
+    "$date": {
+      "$numberLong": "1677419142846"
+    }
+  },
+  "updated": {
+    "$date": {
+      "$numberLong": "1677419142846"
+    }
+  },
+  "__v": 0
+}]

@@ -58,6 +58,11 @@ $ npm run test:e2e
 $ npm run test:cov
 ```
 
+## Run GraphQL Playground
+```
+http://localhost:3000/graphql
+```
+
 ## Test docker localy
 ```
 $ docker build -t nest-cloud-run .

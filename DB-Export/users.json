@@ -1,0 +1,27 @@
+[{
+  "_id": {
+    "$oid": "63faff889ffb2a61f64344d4"
+  },
+  "name": "Nima hashemi",
+  "email": "user@library.com",
+  "password": "$2b$10$2V/EPkstXvVp46NNW/kpHufoL5ArlTrGq1ING6Ej8fk6F/VkMoNMC",
+  "gender": "MAIL",
+  "birthdate": {
+    "$date": {
+      "$numberLong": "385466073000"
+    }
+  },
+  "role": "ADMIN",
+  "active": true,
+  "created": {
+    "$date": {
+      "$numberLong": "1677393800221"
+    }
+  },
+  "updated": {
+    "$date": {
+      "$numberLong": "1677393800221"
+    }
+  },
+  "__v": 0
+}]
